@@ -10,6 +10,8 @@ public class LevelEnd : MonoBehaviour
 {
     private AudioSource _audioSource;
     private MeshRenderer _meshRenderer;
+    [SerializeField] private GameManager _gameManager;
+    
 
     private void OnCollisionEnter(Collision other)
     {
@@ -18,9 +20,10 @@ public class LevelEnd : MonoBehaviour
             Debug.Log("Level complete");
             //gameObject.SetActive(false);
             _meshRenderer.enabled = false;  // disabling the wall's mesh rendering
-             Invoke("Restart", 4.0f);
+            // Invoke("Restart", 4.0f);
         }
         _audioSource.Play();
+        _gameManager.enableMainMenu();
     }
 
     // Start is called before the first frame update
@@ -28,6 +31,7 @@ public class LevelEnd : MonoBehaviour
     {
         _audioSource=GetComponent<AudioSource>();
         _meshRenderer = GetComponent<MeshRenderer>();
+        //_gameManager = GetComponent<GameManager>();
     }
     void Restart()
     {

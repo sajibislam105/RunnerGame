@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager inst;
     public Text scoreText1; //for the text UI
+    public GameObject mainMenu;
  
     public void IncrementScore()
     {
@@ -21,6 +22,13 @@ public class GameManager : MonoBehaviour
     {
         score--;
         scoreText1.text = "Score: " + score;
+    }
+
+    public void enableMainMenu()
+    {
+        Debug.Log("reached the Menu");
+        mainMenu.SetActive(true);  //directly calling gameobject
+        
     }
     private void Awake()
     {
