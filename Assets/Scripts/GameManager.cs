@@ -6,28 +6,30 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    int score = 0;
-
     public static GameManager inst;
     public Text scoreText1; //for the text UI
     public GameObject mainMenu;
- 
+    
+    //reference from S.O.
+    [SerializeField] private Item_SO _itemSo;
+
+    float score = 0;
     public void IncrementScore()
     {
-        score++;
+        score = _itemSo._itemValue + score;
         scoreText1.text = "Score: " + score;
     }
 
     public void DecrementScore()
     {
-        score--;
+        score = _itemSo._itemValue - score;;
         scoreText1.text = "Score: " + score;
     }
 
     public void enableMainMenu()
     {
         Debug.Log("reached the Menu");
-        mainMenu.SetActive(true);  //directly calling gameobject
+        mainMenu.SetActive(true);  //directly calling game object
         
     }
     private void Awake()

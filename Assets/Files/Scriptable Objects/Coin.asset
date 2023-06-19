@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8023ee434119e5441a08f86ac88b2465, type: 3}
+  m_Name: Coin
+  m_EditorClassIdentifier: 
+  _itemName: Coin
+  _itemValue: 5
+  _ItemAudioClip: {fileID: 8300000, guid: 880dfed9a6d191641a1fe43aafd60eb8, type: 3}
+  _itemMaterial: {fileID: 2100000, guid: 0417b388c74dea64e98433ecff947051, type: 2}
+  _itemDescription: Regular Coin
