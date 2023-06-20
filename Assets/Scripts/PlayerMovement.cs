@@ -21,10 +21,10 @@ public class PlayerMovement : MonoBehaviour
     //timer
     public float timeCount = 0.00f;
 
-    private GameState currentState;
+    public GameState currentState;
     
     //using ENUM to define game state
-    enum GameState
+    public enum GameState
     {
         NotRunning,
         Running,
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isPlayerMoving && Input.GetKey(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if (!isPlayerMoving && Input.GetKey(KeyCode.Space))
         {
             isPlayerMoving = true;
             StartCoroutine(RunTimer());
@@ -107,16 +107,16 @@ public class PlayerMovement : MonoBehaviour
         switch (currentState)
         {
             case GameState.NotRunning:
-                Debug.Log(GameState.NotRunning);
+               // Debug.Log(GameState.NotRunning);
                 break;
             case GameState.Running:
-                Debug.Log(GameState.Running);
+              //  Debug.Log(GameState.Running);
                 break;
             case GameState.Complete:
-                Debug.Log(GameState.Complete);
+               // Debug.Log(GameState.Complete);
                 break;
             default:
-                Debug.Log("Error State");
+               // Debug.Log("Error State");
                 break;
         }
         

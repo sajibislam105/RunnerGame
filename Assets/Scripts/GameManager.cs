@@ -11,9 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu;
     public Text timeCountDown;
     
-    //reference from S.O.
-    private Item_SO _itemSo;
-
+   
     float score = 0;
     public void IncrementScore(float value)
     {

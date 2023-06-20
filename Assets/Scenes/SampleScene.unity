@@ -145,11 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 882162979013781861, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 882162979013781861, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.93
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 882162979013781861, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -829,6 +833,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1259,6 +1267,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1422,6 +1434,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1483,6 +1499,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1548,6 +1568,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1673,6 +1701,7 @@ MonoBehaviour:
   sidewaysLimit: 3
   isPlayerMoving: 0
   timeCount: 0
+  currentState: 0
 --- !u!4 &1460227262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0629e5f1297d4e349b1f568879c38cf2, type: 3}
@@ -2191,6 +2220,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2582,6 +2615,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b4c053bafe04142abb9f6c4cb0f190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinCollectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1687076597}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: IncrementScore
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _itemSo: {fileID: 11400000, guid: ce8059d0091714c4cbd0f7c96a1c226c, type: 2}
   _resourceDictionary: {fileID: 1921623005}
   _listofResource: {fileID: 1921623006}
@@ -2664,7 +2712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921622996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: -37.01}
+  m_LocalPosition: {x: 0, y: 1.02, z: -8.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7642,6 +7690,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7793,6 +7849,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+      propertyPath: coinCollectEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1687076597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -8,17 +8,8 @@ public class ListofResource : MonoBehaviour
 
     public void addToList(string name)
     {
-        if (name == "Gem")
-        {
-            itemList.Add(name);    
-            //Debug.Log("Added" + gem);    
-        }
-        else
-        {
-            itemList.Add(name);
-           // Debug.Log("Added" + star);
-        }
-        return;
+       itemList.Add(name);
+       return;
     }
 
     public void GetList()

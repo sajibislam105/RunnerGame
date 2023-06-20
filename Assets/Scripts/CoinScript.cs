@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CoinScript : MonoBehaviour
 {
+    public UnityEvent<float> coinCollectEvent;
+    
     private float rotatespeed = 90.0f;
 
     private AudioSource _audioSource;
@@ -25,13 +28,16 @@ public class CoinScript : MonoBehaviour
     {
         if(other.gameObject.name != "Player")
         {
-            GameManager.inst.IncrementScore(_itemSo._itemValue);   // sending the value of S.O. items value using parameter
+           // gameManager.IncrementScore(_itemSo._itemValue);
+          coinCollectEvent.Invoke(_itemSo._itemValue);
+            
+            //GameManager.inst.IncrementScore(_itemSo._itemValue);   // sending the value of S.O. items value using parameter
             _meshRenderer.enabled = false; // disable the visual first
             _audioSource.clip = _itemSo._ItemAudioClip;  //took from S.O. set the audio clip into the Audio source 
             _audioSource.Play(); // plays sound
             _particleSystem.Play(); // plays when touch the coin
             
-            _resourceDictionary.resourceManagement(_itemSo, _itemSo._itemValue); // sending the S.O. and it's itemValue.
+            //_resourceDictionary.resourceManagement(_itemSo, _itemSo._itemValue); // sending the S.O. and it's itemValue.
           //  _resourceDictionary.GetResourceDetails(_itemSo); //to check if it is added in the dictionary
             
           _listofResource.addToList(_itemSo._itemName); //adding item name to the list sequentially.
