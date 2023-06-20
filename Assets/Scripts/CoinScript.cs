@@ -8,7 +8,8 @@ using UnityEngine.Events;
 public class CoinScript : MonoBehaviour
 {
     public UnityEvent<float> coinCollectEvent;
-    
+    public Action<float> coinCollectAction;
+
     private float rotatespeed = 90.0f;
 
     private AudioSource _audioSource;
@@ -31,6 +32,8 @@ public class CoinScript : MonoBehaviour
            // gameManager.IncrementScore(_itemSo._itemValue);
           coinCollectEvent.Invoke(_itemSo._itemValue);
             
+          coinCollectAction.Invoke(_itemSo._itemValue);
+          
             //GameManager.inst.IncrementScore(_itemSo._itemValue);   // sending the value of S.O. items value using parameter
             _meshRenderer.enabled = false; // disable the visual first
             _audioSource.clip = _itemSo._ItemAudioClip;  //took from S.O. set the audio clip into the Audio source 

@@ -10,9 +10,23 @@ public class GameManager : MonoBehaviour
     public Text scoreText1; //for the text UI
     public GameObject mainMenu;
     public Text timeCountDown;
-    
+
+    public CoinScript _CoinScript;
    
     float score = 0;
+
+    private void OnEnable()
+    {
+        _CoinScript.coinCollectAction += IncrementScore;
+    }
+    
+    
+
+    private void OnDisable()
+    {
+        _CoinScript.coinCollectAction -= IncrementScore;
+    }
+
     public void IncrementScore(float value)
     {
         score = value + score;
@@ -55,4 +69,6 @@ public class GameManager : MonoBehaviour
        //function for activating the scene
         activateScore();
     }
+    
+    
 }
