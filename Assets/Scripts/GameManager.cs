@@ -9,28 +9,27 @@ public class GameManager : MonoBehaviour
     public static GameManager inst;
     public Text scoreText1; //for the text UI
     public GameObject mainMenu;
+    public Text timeCountDown;
     
     //reference from S.O.
-    [SerializeField] private Item_SO _itemSo;
+    private Item_SO _itemSo;
 
     float score = 0;
-    public void IncrementScore()
+    public void IncrementScore(float value)
     {
-        score = _itemSo._itemValue + score;
+        score = value + score;
         scoreText1.text = "Score: " + score;
     }
 
     public void DecrementScore()
     {
-        score = _itemSo._itemValue - score;;
+        score--;
         scoreText1.text = "Score: " + score;
     }
 
     public void enableMainMenu()
     {
-        Debug.Log("reached the Menu");
         mainMenu.SetActive(true);  //directly calling game object
-        
     }
     private void Awake()
     {
@@ -46,13 +45,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+   
+    public void TimerCountDown(float time)
     {
-      
+        timeCountDown.text ="Time " +  time.ToString();
     }
-
-    // Update is called once per frame
+    
+ 
     void Update()
     {
        //function for activating the scene

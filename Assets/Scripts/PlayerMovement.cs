@@ -18,13 +18,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float sidewaysLimit = 2f;
     public bool isPlayerMoving = false; 
    
+    //timer
+    public float timeCount = 0.00f;
+
+    private GameState currentState;
     
+    //using ENUM to define game state
+    enum GameState
+    {
+        NotRunning,
+        Running,
+        Complete
+    }
     
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        currentState = GameState.NotRunning;
     }
 
     // Update is called once per frame
@@ -33,7 +45,9 @@ public class PlayerMovement : MonoBehaviour
         if (!isPlayerMoving && Input.GetKey(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             isPlayerMoving = true;
+            StartCoroutine(RunTimer());
         }
+
         // Move the character forward
         if (isPlayerMoving)
         {
@@ -84,10 +98,31 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetFloat("Velocity X",velocityX);
             
             _rigidbody.MovePosition(newPosition);
+            currentState = GameState.Running;
+        }
+        
+        GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI
+       
+        //inform about game state
+        switch (currentState)
+        {
+            case GameState.NotRunning:
+                Debug.Log(GameState.NotRunning);
+                break;
+            case GameState.Running:
+                Debug.Log(GameState.Running);
+                break;
+            case GameState.Complete:
+                Debug.Log(GameState.Complete);
+                break;
+            default:
+                Debug.Log("Error State");
+                break;
         }
         
     }
 
+    //animation related
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -106,9 +141,19 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetFloat("Velocity X",0f);
             _animator.SetFloat("Velocity Z",0f);
             isPlayerMoving = false;
-            _animator.Play("Victory"); 
+            _animator.Play("Victory");
+            currentState = GameState.Complete;
         }
-        
+    }
+
+        //coroutine timer for the player
+    IEnumerator RunTimer()
+    {
+        while (isPlayerMoving)
+        {
+            timeCount += Time.deltaTime;
+            yield return null;
+        }
     }
         
     }
