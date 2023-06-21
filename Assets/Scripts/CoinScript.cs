@@ -7,8 +7,8 @@ using UnityEngine.Events;
 
 public class CoinScript : MonoBehaviour
 {
-    public UnityEvent<float> coinCollectEvent;
-    public Action<float> coinCollectAction;
+    //public UnityEvent<float> coinCollectEvent;   //unity event action
+    public  Action<float> coinCollectAction;
 
     private float rotatespeed = 90.0f;
 
@@ -24,24 +24,28 @@ public class CoinScript : MonoBehaviour
     
     //getting reference so that it can access the list class
     [SerializeField]private ListofResource _listofResource;
+
+    void OnTriggerIncrement()
+    {
+        coinCollectAction?.Invoke(_itemSo._itemValue); //S.O. value
+    }
     
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.name != "Player")
         {
-           // gameManager.IncrementScore(_itemSo._itemValue);
-          coinCollectEvent.Invoke(_itemSo._itemValue);
-            
-          coinCollectAction.Invoke(_itemSo._itemValue);
-          
+            // gameManager.IncrementScore(_itemSo._itemValue);
+            //coinCollectEvent.Invoke(_itemSo._itemValue);
+
             //GameManager.inst.IncrementScore(_itemSo._itemValue);   // sending the value of S.O. items value using parameter
+            OnTriggerIncrement();
             _meshRenderer.enabled = false; // disable the visual first
             _audioSource.clip = _itemSo._ItemAudioClip;  //took from S.O. set the audio clip into the Audio source 
             _audioSource.Play(); // plays sound
             _particleSystem.Play(); // plays when touch the coin
             
             //_resourceDictionary.resourceManagement(_itemSo, _itemSo._itemValue); // sending the S.O. and it's itemValue.
-          //  _resourceDictionary.GetResourceDetails(_itemSo); //to check if it is added in the dictionary
+            //  _resourceDictionary.GetResourceDetails(_itemSo); //to check if it is added in the dictionary
             
           _listofResource.addToList(_itemSo._itemName); //adding item name to the list sequentially.
           _listofResource.GetList();
@@ -49,6 +53,8 @@ public class CoinScript : MonoBehaviour
             return;
         }
     }
+    
+    
 
     // Start is called before the first frame update
     void Start()

@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour
 {
+    public static Action DecrementAction;
     private AudioSource _audioSource;
+
+    void TriggerDecrementAction()
+    {
+        DecrementAction?.Invoke();
+    }
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name != "Player")
         {
             _audioSource.Play();
-            GameManager.inst.DecrementScore();
+            TriggerDecrementAction();
+            //GameManager.inst.DecrementScore();
         }
     }
     
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

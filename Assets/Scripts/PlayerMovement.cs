@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static Action<float> TimeCounterAction;
+    
     private Rigidbody _rigidbody;
     public Animator _animator;
 
@@ -29,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
         NotRunning,
         Running,
         Complete
+    }
+
+    void OnTriggerTimer()
+    {
+        TimeCounterAction?.Invoke(timeCount);
+        Debug.Log("Timer Action Called");
     }
     
     // Start is called before the first frame update
@@ -101,7 +109,8 @@ public class PlayerMovement : MonoBehaviour
             currentState = GameState.Running;
         }
         
-        GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI
+        //GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI
+        OnTriggerTimer();
        
         //inform about game state
         switch (currentState)
