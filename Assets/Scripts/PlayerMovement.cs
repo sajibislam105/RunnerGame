@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Cinemachine;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera frontCamera;
+    [SerializeField] private CinemachineVirtualCamera followCamera;
     public static Action<float> TimeCounterAction;
     
     private Rigidbody _rigidbody;
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     //movement of rigidbody
     [SerializeField] float moveSpeed = 5f;     // The speed at which the character moves
     [SerializeField] float sidewaysLimit = 2f;
-    public bool isPlayerMoving = false; 
+    public bool isPlayerMoving; 
    
     //timer
     public float timeCount = 0.00f;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         currentState = GameState.NotRunning;
+        frontCamera.Priority = 10;
     }
 
     // Update is called once per frame
@@ -59,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
         // Move the character forward
         if (isPlayerMoving)
         {
+            followCamera.Priority = 10;
+            frontCamera.Priority = 0;
             // Get the horizontal and vertical inputs
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = 1f;
@@ -107,6 +111,10 @@ public class PlayerMovement : MonoBehaviour
             
             _rigidbody.MovePosition(newPosition);
             currentState = GameState.Running;
+        }
+        else
+        {
+            followCamera.Priority = 0;
         }
         
         //GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI

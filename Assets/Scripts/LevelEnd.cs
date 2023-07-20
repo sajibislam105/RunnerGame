@@ -1,13 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using Cinemachine;
 
 public class LevelEnd : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera zoomedCamera;
+    
     private AudioSource _audioSource;
     private MeshRenderer _meshRenderer;
     [SerializeField] private GameManager _gameManager;
@@ -21,6 +19,14 @@ public class LevelEnd : MonoBehaviour
             //gameObject.SetActive(false);
             _meshRenderer.enabled = false;  // disabling the wall's mesh rendering
             // Invoke("Restart", 4.0f);
+            if (_meshRenderer.enabled == false)
+            {
+                zoomedCamera.Priority = 11;
+            }
+            else
+            {
+                zoomedCamera.Priority = 0;
+            }
         }
         _audioSource.Play();
         _gameManager.enableMainMenu();
