@@ -1,16 +1,16 @@
+using Zenject;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class LevelEnd : MonoBehaviour
 {
+    [Inject] private GameManager _gameManager;
     [SerializeField] private CinemachineVirtualCamera zoomedCamera;
-    
-    private AudioSource _audioSource;
-    private MeshRenderer _meshRenderer;
-    [SerializeField] private GameManager _gameManager;
-    
 
+    [Inject]private AudioSource _audioSource;
+    [Inject]private MeshRenderer _meshRenderer;
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name != "Player")
@@ -29,16 +29,8 @@ public class LevelEnd : MonoBehaviour
             }
         }
         _audioSource.Play();
-        _gameManager.enableMainMenu();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _audioSource=GetComponent<AudioSource>();
-        _meshRenderer = GetComponent<MeshRenderer>();
-        //_gameManager = GetComponent<GameManager>();
-    }
+        _gameManager.EnableMainMenu();
+    }    
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

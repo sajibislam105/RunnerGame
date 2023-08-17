@@ -37,11 +37,11 @@ public class PlayerMovement : MonoBehaviour
     void OnTriggerTimer()
     {
         TimeCounterAction?.Invoke(timeCount);
-        Debug.Log("Timer Action Called");
+//        Debug.Log("Timer Action Called");
     }
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
@@ -50,93 +50,103 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (!isPlayerMoving && Input.GetKey(KeyCode.Space))
-        {
-            isPlayerMoving = true;
-            StartCoroutine(RunTimer());
-        }
+       PlayerMovementMethod();
+    }
 
-        // Move the character forward
-        if (isPlayerMoving)
-        {
-            followCamera.Priority = 10;
-            frontCamera.Priority = 0;
-            // Get the horizontal and vertical inputs
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = 1f;
+    private void PlayerMovementMethod()
+    {
+         if (!isPlayerMoving && Input.GetKey(KeyCode.Space))
+         {
+             //Debug.Log("Spaced Clicked");
+             isPlayerMoving = true;
+             StartCoroutine(RunTimer());
+         }
 
-            // Move the character only forward
-            Vector3 forwardMovement = transform.forward * (verticalInput * moveSpeed * Time.deltaTime);
-            _rigidbody.MovePosition(_rigidbody.position + forwardMovement);
+         // Move the character forward
+         if (isPlayerMoving)
+         {
+             followCamera.Priority = 10;
+             frontCamera.Priority = 0;
+             // Get the horizontal and vertical inputs
+             float horizontalInput = Input.GetAxis("Horizontal");
+             float verticalInput = 1f;
 
-            // Move the character sideways within the limit
-            Vector3 sidewaysMovement = transform.right * (horizontalInput * moveSpeed * Time.deltaTime);
-            Vector3 newPosition = _rigidbody.position + sidewaysMovement;
-            //clamp restricts value within range here, limiting range is 'sidewaysLimit'
-            newPosition.x = Mathf.Clamp(newPosition.x, -sidewaysLimit, sidewaysLimit);
+             // Move the character only forward
+             Vector3 forwardMovement = transform.forward * (verticalInput * moveSpeed * Time.deltaTime);
+             _rigidbody.MovePosition(_rigidbody.position + forwardMovement);
+
+             // Move the character sideways within the limit
+             Vector3 sidewaysMovement = transform.right * (horizontalInput * moveSpeed * Time.deltaTime);
+             Vector3 newPosition = _rigidbody.position + sidewaysMovement;
+             //clamp restricts value within range here, limiting range is 'sidewaysLimit'
+             newPosition.x = Mathf.Clamp(newPosition.x, -sidewaysLimit, sidewaysLimit);
             
-            //animation code part
-            if (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonDown(0))
-            {
-                velocityZ = 1f;
-            }
+             //animation code part
+             if (Input.GetKey(KeyCode.Space) || Input.GetMouseButtonDown(0))
+             {
+                 velocityZ = 1f;
+             }
             
             
-            //for going left animation
-            var left = Input.GetKey(KeyCode.A);
-            if (left)
-            {
-                velocityX -= 3f * Time.deltaTime;
-            }
-            //for decreasing left
-            else if(!left &&  velocityX <= 0f )
-            {
-                velocityX += 3f * Time.deltaTime;
-            }
-            //for going right animation
-            var right = Input.GetKey(KeyCode.D);
-            if (right)
-            {
-                velocityX += 3f *Time.deltaTime ;
-            }
-            //for decreasing right 
-            else if (!right && velocityX >= 0f)
-            {
-                velocityX -= 3f *Time.deltaTime ;
-            }
-            _animator.SetFloat("Velocity Z",1.0f); //for going forward
-            _animator.SetFloat("Velocity X",velocityX);
+             //for going left animation
+             var left = Input.GetKey(KeyCode.A);
+             if (left)
+             {
+                 velocityX -= 3f * Time.deltaTime;
+             }
+             //for decreasing left
+             else if(!left &&  velocityX <= 0f )
+             {
+                 velocityX += 3f * Time.deltaTime;
+             }
+             //for going right animation
+             var right = Input.GetKey(KeyCode.D);
+             if (right)
+             {
+                 velocityX += 3f *Time.deltaTime ;
+             }
+             //for decreasing right 
+             else if (!right && velocityX >= 0f)
+             {
+                 velocityX -= 3f *Time.deltaTime ;
+             }
+             _animator.SetFloat("Velocity Z",1.0f); //for going forward
+             _animator.SetFloat("Velocity X",velocityX);
             
-            _rigidbody.MovePosition(newPosition);
-            currentState = GameState.Running;
-        }
-        else
-        {
-            followCamera.Priority = 0;
-        }
+             _rigidbody.MovePosition(newPosition);
+             currentState = GameState.Running;
+         }
+         else
+         {
+             followCamera.Priority = 0;
+         }
         
-        //GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI
-        OnTriggerTimer();
-       
+         //GameManager.inst.TimerCountDown(timeCount); //sending the time value to the UI
+         OnTriggerTimer();
+         GameStateStatus(currentState);
+    }
+
+
+    private void GameStateStatus(Enum currentState)
+    {
         //inform about game state
         switch (currentState)
         {
             case GameState.NotRunning:
-               // Debug.Log(GameState.NotRunning);
+                // Debug.Log(GameState.NotRunning);
                 break;
             case GameState.Running:
-              //  Debug.Log(GameState.Running);
+                //  Debug.Log(GameState.Running);
                 break;
             case GameState.Complete:
-               // Debug.Log(GameState.Complete);
+                // Debug.Log(GameState.Complete);
                 break;
             default:
-               // Debug.Log("Error State");
+                 Debug.Log("Error State");
                 break;
         }
-        
     }
 
     //animation related
@@ -163,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-        //coroutine timer for the player
+    //coroutine timer for the player
     IEnumerator RunTimer()
     {
         while (isPlayerMoving)
@@ -172,5 +182,4 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
     }
-        
-    }
+}

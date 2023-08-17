@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+
 public class GemSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject OrignalGem;
-    [SerializeField] private GameObject GemContainer;
+    [Inject] private GameManager _gameManager;
+    [Inject] private DiContainer _container;
+    
+    [SerializeField] private CoinScript originalGemPrefab;
+    [SerializeField] private Transform gemContainerTransform;
 
-    private CoinScript _coinScript;
-   [SerializeField] private GameManager _gameManager;
     private void Start()
     {
         SpawnGem(5);
@@ -16,15 +17,17 @@ public class GemSpawner : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            GameObject GemClone = Instantiate(OrignalGem, new Vector3((-2.5f), OrignalGem.transform.position.y, ((-30)+i)), OrignalGem.transform.rotation);
-            _coinScript = GemClone.GetComponent<CoinScript>();
-            _coinScript.coinCollectAction += incrementScore;
-            GemClone.transform.parent = GemContainer.transform;
-            GemClone.name = "Gem" + (i + 1);
+            var gemClone = _container.InstantiatePrefab(originalGemPrefab.gameObject).GetComponent<CoinScript>();
+            var gemCloneTransform = gemClone.transform;
+            gemCloneTransform.position = new Vector3((-2.5f), originalGemPrefab.transform.position.y, ((-30) + i));
+            gemCloneTransform.rotation = originalGemPrefab.transform.rotation;
+            
+            gemClone.coinCollectAction += IncrementScore;
+            gemClone.transform.parent = gemContainerTransform.transform;
+            gemClone.name = "Gem" + (i + 1);
         }
     }
-    
-    void incrementScore(float value)
+    private void IncrementScore(float value)
     {
         _gameManager.IncrementScore(10f);
     }

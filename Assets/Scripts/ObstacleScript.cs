@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ObstacleScript : MonoBehaviour
 {
     public static Action DecrementAction;
-    private AudioSource _audioSource;
+    [Inject]private AudioSource _audioSource;
 
     void TriggerDecrementAction()
     {
         DecrementAction?.Invoke();
     }
-    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name != "Player")
@@ -21,10 +19,5 @@ public class ObstacleScript : MonoBehaviour
             TriggerDecrementAction();
             //GameManager.inst.DecrementScore();
         }
-    }
-    
-    void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
     }
 }

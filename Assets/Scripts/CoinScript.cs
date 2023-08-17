@@ -1,20 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
+using Zenject;
 
 public class CoinScript : MonoBehaviour
 {
     //public UnityEvent<float> coinCollectEvent;   //unity event action
     public  Action<float> coinCollectAction;
+    
+    [Inject] private AudioSource _audioSource;
+    [Inject] private MeshRenderer _meshRenderer;
+    [Inject] private ParticleSystem _particleSystem;
 
-    private float rotatespeed = 90.0f;
-
-    private AudioSource _audioSource;
-    private MeshRenderer _meshRenderer;
-    private ParticleSystem _particleSystem;
+    private const float RotateSpeed = 90.0f;
     
     //scriptable object
     [SerializeField] private Item_SO _itemSo; // referencing scriptable object
@@ -24,6 +21,11 @@ public class CoinScript : MonoBehaviour
     
     //getting reference so that it can access the list class
     [SerializeField]private ListofResource _listofResource;
+
+    void Update()
+    {
+        transform.Rotate(0,0,RotateSpeed* Time.deltaTime);
+    }
 
     void OnTriggerIncrement()
     {
@@ -47,27 +49,9 @@ public class CoinScript : MonoBehaviour
             //_resourceDictionary.resourceManagement(_itemSo, _itemSo._itemValue); // sending the S.O. and it's itemValue.
             //  _resourceDictionary.GetResourceDetails(_itemSo); //to check if it is added in the dictionary
             
-          _listofResource.addToList(_itemSo._itemName); //adding item name to the list sequentially.
+          _listofResource.AddToList(_itemSo._itemName); //adding item name to the list sequentially.
           _listofResource.GetList();
             //Destroy(gameObject, 5.0f); // objects will be destroyed after 5 seconds
-            return;
         }
     }
-    
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        _meshRenderer = GetComponent<MeshRenderer>();
-        _particleSystem = GetComponent<ParticleSystem>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Rotate(0,0,rotatespeed* Time.deltaTime);
-    }
-
 }

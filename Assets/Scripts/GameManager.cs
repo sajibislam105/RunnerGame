@@ -1,18 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-   // public static GameManager inst;
     public Text scoreText1; //for the text UI
-    public GameObject mainMenu;
+    [SerializeField] public GameObject mainMenu;
     public Text timeCountDown;
 
-    float score = 0;
-    //[SerializeField] private CoinScript _coinScript;
+    private float _score;
+    
     private void OnEnable()
     { 
         ObstacleScript.DecrementAction += DecrementScore;
@@ -24,31 +20,31 @@ public class GameManager : MonoBehaviour
         ObstacleScript.DecrementAction -= DecrementScore;
         PlayerMovement.TimeCounterAction -= TimerCountDown;
     }
-    
-    void Update()
+
+    private void Update()
     {
         //function for activating the scene
-        activateScore();
+        ActivateScore();
     }
 
     public void IncrementScore(float value)
     {
-        score = value + score;
-        scoreText1.text = "Score: " + score;
+        _score = value + _score;
+        scoreText1.text = "Score: " + _score;
     }
 
     private void DecrementScore()
     {
-        score--;
-        scoreText1.text = "Score: " + score;
+        _score--;
+        scoreText1.text = "Score: " + _score;
     }
 
-    public void enableMainMenu()
+    public void EnableMainMenu()
     {
         mainMenu.SetActive(true);  //directly calling game object
     }
     //activating Score when game starts
-    void activateScore()
+    void ActivateScore()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -57,6 +53,6 @@ public class GameManager : MonoBehaviour
     }
     private void TimerCountDown(float time)
     {
-        timeCountDown.text ="Time " +  time.ToString();
+        timeCountDown.text ="Time " +  time;
     }
 }

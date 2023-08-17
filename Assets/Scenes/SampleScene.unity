@@ -1537,6 +1537,83 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1143958089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143958092}
+  - component: {fileID: 1143958091}
+  - component: {fileID: 1143958090}
+  m_Layer: 0
+  m_Name: SceneContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1143958090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143958089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f49b2a02c55c32d488f5b0153f85e607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1143958091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143958089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 1143958090}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
+--- !u!4 &1143958092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143958089}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1209988143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,9 +1658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ce9b5f3289fcd489b2c3373f615843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OrignalGem: {fileID: 8487724448835694851, guid: b11e0d611512e17409c902b0539d20ff, type: 3}
-  GemContainer: {fileID: 2101362107}
-  _gameManager: {fileID: 1687076597}
+  originalGemPrefab: {fileID: 6243865742975570130, guid: b11e0d611512e17409c902b0539d20ff, type: 3}
+  gemContainerTransform: {fileID: 2101362108}
 --- !u!1 &1231077830
 GameObject:
   m_ObjectHideFlags: 3
@@ -1685,9 +1761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ef8142fd201964096e8f5894da721e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OrignalStar: {fileID: 331329969195250023, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
-  StarContainer: {fileID: 510007723}
-  _gameManager: {fileID: 1687076597}
+  OrignalStarPrefab: {fileID: 3926392393045913684, guid: 163ad384315499b41ba896a39d03aeb2, type: 3}
+  starContainerTransform: {fileID: 510007724}
 --- !u!1 &1317817406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9184799658607813419, guid: 4ddde72b89e9a1e42b5de002b4331b62, type: 3}
@@ -2221,7 +2296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoomedCamera: {fileID: 1342899496}
-  _gameManager: {fileID: 1687076597}
 --- !u!65 &1625451920
 BoxCollider:
   m_ObjectHideFlags: 0
