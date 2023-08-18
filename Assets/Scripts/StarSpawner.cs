@@ -3,18 +3,20 @@ using Zenject;
 
 public class StarSpawner : MonoBehaviour
 {
-    [Inject] private GameManager _gameManager;
-    [Inject] private DiContainer _container;
-    
     [SerializeField] private CoinScript OrignalStarPrefab;
     [SerializeField] private Transform starContainerTransform;
+    
+    [Inject] private GameManager _gameManager;
+    [Inject] private DiContainer _container;
+    [Inject] private SignalBus _signalBus;
 
     private void Start()
     {
-        SpawnStar(10);
+        _signalBus.Subscribe<RunnerGameSignals.CoinCollectSignal>(IncrementScore); //updating score
+        SpawnStar(10); 
     }
 
-    void SpawnStar(int number)
+    private void SpawnStar(int number)
     {
         for (int i = 0; i < number; i++)
         {
@@ -22,15 +24,16 @@ public class StarSpawner : MonoBehaviour
             var starCloneTransform = starClone.transform;
             starCloneTransform.position = new Vector3((1), OrignalStarPrefab.transform.position.y, ((-40)+i)); //star position
             starCloneTransform.rotation = OrignalStarPrefab.transform.rotation;
-            
-            starClone.coinCollectAction += IncrementScore;//_gameManager.IncrementScore;
+
             starClone.transform.parent = starContainerTransform.transform;
             starClone.name = "Star" + (i + 1);
         }
     }
 
-    void IncrementScore(float value)
+    private void IncrementScore(RunnerGameSignals.CoinCollectSignal coinCollectSignal)
     {
-        _gameManager.IncrementScore(10f);
+        var score = coinCollectSignal.ScriptableObjectItemValue;
+        //_gameManager.IncrementScore(10f);
+        _gameManager.IncrementScore(score);
     }
 }

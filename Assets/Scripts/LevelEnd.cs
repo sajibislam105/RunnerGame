@@ -5,9 +5,9 @@ using Cinemachine;
 
 public class LevelEnd : MonoBehaviour
 {
-    [Inject] private GameManager _gameManager;
     [SerializeField] private CinemachineVirtualCamera zoomedCamera;
-
+    
+    [Inject] private GameManager _gameManager;
     [Inject]private AudioSource _audioSource;
     [Inject]private MeshRenderer _meshRenderer;
     

@@ -1,35 +1,33 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 public class CoinScript : MonoBehaviour
 {
-    //public UnityEvent<float> coinCollectEvent;   //unity event action
-    public  Action<float> coinCollectAction;
+    //scriptable object
+    [SerializeField] private Item_SO _itemSo; // referencing scriptable object
+    
+    [SerializeField]private ResourceDictionary _resourceDictionary; //getting reference so that it can access the dictionary class
+    [SerializeField]private ListofResource _listofResource; ////getting reference so that it can access the list class
     
     [Inject] private AudioSource _audioSource;
     [Inject] private MeshRenderer _meshRenderer;
     [Inject] private ParticleSystem _particleSystem;
-
+    [Inject] private SignalBus _signalBus;
+    
     private const float RotateSpeed = 90.0f;
-    
-    //scriptable object
-    [SerializeField] private Item_SO _itemSo; // referencing scriptable object
-    
-    //getting reference so that it can access the dictionary class
-    [SerializeField]private ResourceDictionary _resourceDictionary;
-    
-    //getting reference so that it can access the list class
-    [SerializeField]private ListofResource _listofResource;
 
-    void Update()
+    private void Update()
     {
         transform.Rotate(0,0,RotateSpeed* Time.deltaTime);
     }
 
-    void OnTriggerIncrement()
+    private void OnTriggerIncrement()
     {
-        coinCollectAction?.Invoke(_itemSo._itemValue); //S.O. value
+        //coinCollectAction?.Invoke(_itemSo._itemValue); //S.O. value
+        _signalBus.Fire(new RunnerGameSignals.CoinCollectSignal()
+        {
+            ScriptableObjectItemValue = _itemSo._itemValue
+        });
     }
     
     private void OnTriggerEnter(Collider other)

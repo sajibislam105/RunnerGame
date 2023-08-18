@@ -2,48 +2,46 @@ using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera frontCamera;
     [SerializeField] private CinemachineVirtualCamera followCamera;
-    public static Action<float> TimeCounterAction;
+    [SerializeField] private Animator _animator;
     
-    private Rigidbody _rigidbody;
-    public Animator _animator;
+    [Inject] private SignalBus _signalBus;
+    [Inject]private Rigidbody _rigidbody;
 
+    [SerializeField] float moveSpeed = 5f;     // The speed at which the character moves
+    [SerializeField] float sidewaysLimit = 2f;
+    [SerializeField] private bool isPlayerMoving; //movement of rigidbody
+    [SerializeField] private GameState currentState;
     //movement of animations
     private float velocityZ = 0.0f;
     private float velocityX = 0.0f;
-    
-    //movement of rigidbody
-    [SerializeField] float moveSpeed = 5f;     // The speed at which the character moves
-    [SerializeField] float sidewaysLimit = 2f;
-    public bool isPlayerMoving; 
-   
     //timer
-    public float timeCount = 0.00f;
-
-    public GameState currentState;
-    
+    private float timeCount = 0.00f;
     //using ENUM to define game state
-    public enum GameState
+    private enum GameState
     {
         NotRunning,
         Running,
         Complete
     }
-
+    //public static Action<float> TimeCounterAction;
     void OnTriggerTimer()
     {
-        TimeCounterAction?.Invoke(timeCount);
+        _signalBus.Fire(new RunnerGameSignals.TimerCounterSignal()
+        {
+            TimeCount = timeCount
+        });
 //        Debug.Log("Timer Action Called");
     }
     
     // Start is called before the first frame update
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         currentState = GameState.NotRunning;
         frontCamera.Priority = 10;

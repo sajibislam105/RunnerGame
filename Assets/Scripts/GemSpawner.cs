@@ -3,17 +3,19 @@ using Zenject;
 
 public class GemSpawner : MonoBehaviour
 {
-    [Inject] private GameManager _gameManager;
-    [Inject] private DiContainer _container;
-    
     [SerializeField] private CoinScript originalGemPrefab;
     [SerializeField] private Transform gemContainerTransform;
+    
+    [Inject] private GameManager _gameManager;
+    [Inject] private DiContainer _container;
+    [Inject] private SignalBus _signalBus;
 
     private void Start()
     {
+        _signalBus.Subscribe<RunnerGameSignals.CoinCollectSignal>(IncrementScore); //updating score
         SpawnGem(5);
     }
-    void SpawnGem(int number)
+    private void SpawnGem(int number)
     {
         for (int i = 0; i < number; i++)
         {
@@ -21,14 +23,15 @@ public class GemSpawner : MonoBehaviour
             var gemCloneTransform = gemClone.transform;
             gemCloneTransform.position = new Vector3((-2.5f), originalGemPrefab.transform.position.y, ((-30) + i));
             gemCloneTransform.rotation = originalGemPrefab.transform.rotation;
-            
-            gemClone.coinCollectAction += IncrementScore;
+
             gemClone.transform.parent = gemContainerTransform.transform;
             gemClone.name = "Gem" + (i + 1);
         }
     }
-    private void IncrementScore(float value)
+    private void IncrementScore(RunnerGameSignals.CoinCollectSignal coinCollectSignal)
     {
-        _gameManager.IncrementScore(10f);
+        var score = coinCollectSignal.ScriptableObjectItemValue;
+        //_gameManager.IncrementScore(10f);
+        _gameManager.IncrementScore(score);
     }
 }

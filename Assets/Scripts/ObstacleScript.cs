@@ -4,19 +4,19 @@ using Zenject;
 
 public class ObstacleScript : MonoBehaviour
 {
-    public static Action DecrementAction;
     [Inject]private AudioSource _audioSource;
+    [Inject] private SignalBus _signalBus;
 
-    void TriggerDecrementAction()
+    private void TriggerDecrementScoreSignal()
     {
-        DecrementAction?.Invoke();
+        _signalBus.Fire(new RunnerGameSignals.DecrementScoreSignal());
     }
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name != "Player")
         {
             _audioSource.Play();
-            TriggerDecrementAction();
+            TriggerDecrementScoreSignal();
             //GameManager.inst.DecrementScore();
         }
     }

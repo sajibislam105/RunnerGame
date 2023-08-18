@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject mainMenu;
     public Text scoreText1; //for the text UI
-    [SerializeField] public GameObject mainMenu;
     public Text timeCountDown;
 
+    [Inject] private SignalBus _signalBus;
+    
     private float _score;
     
     private void OnEnable()
-    { 
-        ObstacleScript.DecrementAction += DecrementScore;
-        PlayerMovement.TimeCounterAction += TimerCountDown;
+    {
+        _signalBus.Subscribe<RunnerGameSignals.DecrementScoreSignal>(DecrementScore);
+        _signalBus.Subscribe<RunnerGameSignals.TimerCounterSignal>(TimerCountDown);
     }
 
     private void OnDisable()
     {
-        ObstacleScript.DecrementAction -= DecrementScore;
-        PlayerMovement.TimeCounterAction -= TimerCountDown;
+        _signalBus.Unsubscribe<RunnerGameSignals.DecrementScoreSignal>(DecrementScore);
+        _signalBus.Unsubscribe<RunnerGameSignals.TimerCounterSignal>(TimerCountDown);
     }
 
     private void Update()
@@ -51,8 +54,9 @@ public class GameManager : MonoBehaviour
             scoreText1.gameObject.SetActive(true);
         }
     }
-    private void TimerCountDown(float time)
+    private void TimerCountDown(RunnerGameSignals.TimerCounterSignal timerCounterSignal)
     {
+        var time = timerCounterSignal.TimeCount;
         timeCountDown.text ="Time " +  time;
     }
 }
